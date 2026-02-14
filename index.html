@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's Mommy 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 30px;
+    max-width: 450px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+h1{
+    font-size:2.2rem;
+    margin-bottom:15px;
+}
+
+p{
+    font-size:1rem;
+    line-height:1.6;
+}
+
+/* 💖 Floating Hearts */
+.heart {
+    position: fixed;
+    top: 0;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(110vh) scale(0.6);
+        opacity:0;
+    }
+    20%{ opacity:0.8; }
+    80%{ opacity:0.8; }
+    100%{
+        transform:translateY(-20vh) scale(1);
+        opacity:0;
+    }
+}
+
+/* 📸 Floating Photos */
+.floating-photo {
+    position: fixed;
+    top: 0;
+    width: 130px;
+    border-radius: 18px;
+    animation: floatPhoto linear forwards;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+@keyframes floatPhoto{
+    0%{
+        transform:translateY(110vh) rotate(-8deg) scale(0.9);
+    }
+    100%{
+        transform:translateY(-25vh) rotate(8deg) scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Happy Valentine's Day Mommy 💐💖</h1>
+
+    <p>
+        Mommy, thank you for your unconditional love,  
+        endless support, and warm hugs. 🥹💕<br><br>
+        You are my first love, my safe place,  
+        and my biggest blessing. 💞<br><br>
+        To the most beautiful Mom in the world, I love you so much! 💖✨
+    </p>
+</div>
+
+<script>
+
+/* 💖 Floating Hearts Generator */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText="💖";
+    heart.style.left=Math.random()*100+"vw";
+    const duration=Math.random()*6+8;
+    heart.style.animationDuration=duration+"s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},duration*1000);
+}
+setInterval(createHeart,1200);
+
+/* 📸 Floating Photos Generator (pic1.jpg to pic31.jpg) */
+const photos=[];
+for(let i=1;i<=21;i++){
+    photos.push(`pic${i}.jpg`);
+}
+
+let activePhotos=0;
+const MAX_PHOTOS=6;
+let lastX=0;
+
+function createPhoto(){
+
+    if(activePhotos>=MAX_PHOTOS) return;
+
+    const img=document.createElement("img");
+    img.src=photos[Math.floor(Math.random()*photos.length)];
+    img.classList.add("floating-photo");
+
+    let x;
+    do{
+        x=Math.random()*90;
+    }while(Math.abs(x-lastX)<15);
+    lastX=x;
+
+    img.style.left=x+"vw";
+
+    const duration=Math.random()*8+14;
+    img.style.animationDuration=duration+"s";
+
+    document.body.appendChild(img);
+    activePhotos++;
+
+    setTimeout(()=>{
+        img.remove();
+        activePhotos--;
+    },duration*1000);
+}
+
+setInterval(createPhoto,3500);
+
+</script>
+
+</body>
+</html>
